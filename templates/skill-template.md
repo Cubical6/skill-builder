@@ -29,14 +29,14 @@ description: Use this skill when [describe specific situations when this skill s
 
 [Clear, actionable instructions]
 
-**Node.js Example:**
-```javascript
-#!/usr/bin/env node
-import { readFile } from 'fs/promises';
+**Python Example:**
+```python
+#!/usr/bin/env python3
+from pathlib import Path
 
-// Your implementation here
-const data = await readFile('input.txt', 'utf-8');
-console.log(data);
+# Your implementation here
+data = Path('input.txt').read_text()
+print(data)
 ```
 
 ## 3. [Third Major Step]
@@ -45,7 +45,7 @@ console.log(data);
 
 ```bash
 gh repo view --json name,description
-npm install -g useful-package
+pip install useful-package
 aws s3 ls s3://bucket-name/
 ```
 
@@ -57,7 +57,7 @@ aws s3 ls s3://bucket-name/
 
 **Approach**:
 1. Use `cli-tool` to gather information
-2. Process with Node.js script
+2. Process with Python script
 3. Validate output with another CLI command
 
 **Complete Commands:**
@@ -65,11 +65,11 @@ aws s3 ls s3://bucket-name/
 # Step 1
 gh api repos/owner/repo
 
-# Step 2 - Node.js processing
-node process-data.js
+# Step 2 - Python processing
+python process-data.py
 
 # Step 3 - Validation
-npm test
+pytest
 ```
 
 **Expected Outcome**: [What should result]
@@ -80,54 +80,55 @@ npm test
 
 **Approach**:
 1. [Step using CLI tools]
-2. [Step using Node.js]
+2. [Step using Python]
 3. [Verification step]
 
 # CLI Tools to Leverage
 
 **Essential tools for this skill:**
 - `gh` - GitHub CLI operations
-- `npm` - Package management and script running
+- `pip` - Package management
 - `aws` - AWS CLI operations (if applicable)
 - `git` - Version control operations
 - `jq` - JSON processing
 - [Other relevant CLI tools]
 
-**Global NPM Packages to Consider:**
-- `npm install -g package-name` - [Purpose]
-- `npm install -g another-package` - [Purpose]
+**Global Python Packages to Consider:**
+- `pip install package-name` - [Purpose]
+- `pip install another-package` - [Purpose]
 
-# Node.js Patterns
+# Python Patterns
 
 **File Operations:**
-```javascript
-#!/usr/bin/env node
-import { readFile, writeFile } from 'fs/promises';
+```python
+#!/usr/bin/env python3
+from pathlib import Path
 
-const content = await readFile('input.txt', 'utf-8');
-await writeFile('output.txt', content.toUpperCase());
+content = Path('input.txt').read_text()
+Path('output.txt').write_text(content.upper())
 ```
 
-**Running CLI Commands from Node:**
-```javascript
-#!/usr/bin/env node
-import { exec } from 'child_process';
-import { promisify } from 'util';
+**Running CLI Commands from Python:**
+```python
+#!/usr/bin/env python3
+import subprocess
+import json
 
-const execAsync = promisify(exec);
-const { stdout } = await execAsync('gh repo view --json name');
-const repo = JSON.parse(stdout);
-console.log(repo.name);
+result = subprocess.run(['gh', 'repo', 'view', '--json', 'name'],
+                       capture_output=True, text=True)
+repo = json.loads(result.stdout)
+print(repo['name'])
 ```
 
 **Processing JSON Data:**
-```javascript
-#!/usr/bin/env node
-import { readFile } from 'fs/promises';
+```python
+#!/usr/bin/env python3
+from pathlib import Path
+import json
 
-const data = JSON.parse(await readFile('data.json', 'utf-8'));
-const filtered = data.filter(item => item.active);
-console.log(filtered);
+data = json.loads(Path('data.json').read_text())
+filtered = [item for item in data if item.get('active')]
+print(filtered)
 ```
 
 # Best Practices
@@ -135,7 +136,7 @@ console.log(filtered);
 - Challenge each instruction: "Does Claude really need this context?"
 - Keep SKILL.md under 500 lines
 - Use CLI tools liberally for operations
-- Write Node.js scripts (not Python) for complex logic
+- Write Python scripts (not Node.js) for complex logic
 - Provide complete, runnable commands
 - Reference supporting files with relative paths (e.g., `./details.md`)
 - Use intention-revealing names for all files
@@ -184,4 +185,4 @@ another-diagnostic-command
 - See `./templates/` for [what templates are available]
 - See `./scripts/` for [what helper scripts exist]
 
-Remember: All scripts should be Node.js with ESM imports, not Python!
+Remember: All scripts should be Python, not Node.js!

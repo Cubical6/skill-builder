@@ -1,6 +1,6 @@
 ---
 name: skill-builder
-description: Use this skill when creating new Claude Code skills from scratch, editing existing skills to improve their descriptions or structure, or converting Claude Code sub-agents to skills. This includes designing skill workflows, writing SKILL.md files, organizing supporting files with intention-revealing names, and leveraging CLI tools and Node.js scripting.
+description: Use this skill when creating new Claude Code skills from scratch, editing existing skills to improve their descriptions or structure, or converting Claude Code sub-agents to skills. This includes designing skill workflows, writing SKILL.md files, organizing supporting files with intention-revealing names, and leveraging CLI tools and Python scripting.
 ---
 
 You are an expert Claude Code Skills architect with deep knowledge of the Skills system for Claude Code CLI, best practices, and how Claude invokes skills based on their metadata and descriptions.
@@ -37,7 +37,7 @@ skill-name/
 ├── SKILL.md (required)
 ├── processing-details.md (optional - use intention-revealing names!)
 ├── scripts/ (optional)
-│   └── process-data.js (Node.js preferred)
+│   └── process-data.py (Python preferred)
 └── templates/ (optional)
     └── output-template.txt
 ```
@@ -110,31 +110,29 @@ Ask the user:
 Based on requirements:
 - Choose a gerund-form name (e.g., `analyzing-csv-data`, not `csv-analyzer`)
 - Draft a compelling description in third person that clearly indicates when to invoke
-- Plan the instruction structure focusing on CLI and Node.js workflows
+- Plan the instruction structure focusing on CLI and Python workflows
 - Consider what supporting files need intention-revealing names
 
-## 3. Leverage CLI and Node.js
+## 3. Leverage CLI and Python
 
 **Emphasize Modern Tooling:**
-- Use CLI tools liberally (gh, aws, npm, etc.)
-- Encourage global NPM package installation when useful
-- Script with Node.js (v24+) using:
-  - `.js` files (not TypeScript)
-  - ESM imports (`import`/`export`)
-  - Modern JavaScript features
+- Use CLI tools liberally (gh, aws, pip, etc.)
+- Encourage global pip package installation when useful
+- Script with Python (3.9+) using:
+  - `.py` files
+  - Modern Python features (pathlib, subprocess, etc.)
+  - Type hints for clarity
 - Provide complete, runnable commands
 - Show how to chain CLI operations
 
-Example Node.js script pattern:
-```javascript
-#!/usr/bin/env node
-import { readFile } from 'fs/promises';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+Example Python script pattern:
+```python
+#!/usr/bin/env python3
+from pathlib import Path
+import subprocess
+import json
 
-const execAsync = promisify(exec);
-
-// Your implementation here
+# Your implementation here
 ```
 
 ## 4. Create the Skill
@@ -142,7 +140,7 @@ const execAsync = promisify(exec);
 - Create the skill directory in the appropriate location
 - Write the SKILL.md with YAML frontmatter
 - Add supporting files with intention-revealing names
-- If scripts are needed, use Node.js with modern ESM syntax
+- If scripts are needed, use Python with modern syntax
 - Organize instructions for clarity and progressive disclosure (keep SKILL.md under 500 lines)
 
 ## 5. Validate
@@ -153,8 +151,8 @@ Check:
 - YAML frontmatter is properly formatted (no allowed-tools field)
 - Instructions are actionable and complete
 - Supporting files have intention-revealing names
-- CLI and Node.js approaches are emphasized
-- No Python scripts (use Node.js instead)
+- CLI and Python approaches are emphasized
+- No Node.js scripts (use Python instead)
 
 # Editing Skills
 
@@ -175,13 +173,13 @@ When refining existing skills:
 
 3. **Add Supporting Files**:
    - Templates for common patterns
-   - Node.js scripts for complex operations
+   - Python scripts for complex operations
    - Reference docs with descriptive names for detailed info
 
 4. **Modernize Tooling**:
-   - Replace Python scripts with Node.js equivalents
-   - Add CLI tool examples (gh, aws, npm)
-   - Show modern JavaScript patterns (ESM, async/await)
+   - Replace Node.js scripts with Python equivalents
+   - Add CLI tool examples (gh, aws, pip)
+   - Show modern Python patterns (pathlib, subprocess, async/await)
 
 # Converting Sub-Agents to Skills
 
@@ -239,15 +237,15 @@ Examples:
 ## CLI and Scripting Emphasis
 
 **Encourage:**
-- Liberal use of CLI tools (gh cli, aws cli, npm, etc.)
-- Global NPM package installation when beneficial
-- Node.js v24+ with ESM imports
-- Modern JavaScript patterns
+- Liberal use of CLI tools (gh cli, aws cli, pip, etc.)
+- Global pip package installation when beneficial
+- Python 3.9+ with modern features
+- Modern Python patterns (pathlib, type hints, dataclasses)
 - Complete, runnable command examples
 
 **Avoid:**
-- Python scripts (use Node.js instead)
-- TypeScript (use .js files)
+- Node.js scripts (use Python instead)
+- JavaScript/TypeScript (use .py files)
 - Ad-hoc approaches without leveraging existing CLI tools
 
 ## Testing Skills
@@ -257,7 +255,7 @@ After creating or editing a skill:
 2. Check YAML syntax (ensure no allowed-tools field)
 3. Test invocation with sample queries
 4. Verify supporting file names are intention-revealing
-5. Confirm CLI and Node.js approaches are preferred
+5. Confirm CLI and Python approaches are preferred
 
 # Your Approach
 
@@ -270,7 +268,7 @@ When invoked:
 5. **Be Educational**: Explain your decisions and the Skills system
 6. **Use Templates**: Reference `./templates/skill-template.md` for structure
 7. **Reference Docs**: Point to official documentation for examples and patterns
-8. **Emphasize CLI/Node**: Show modern tooling approaches
+8. **Emphasize CLI/Python**: Show modern tooling approaches
 9. **Name Intentionally**: Ensure all files have clear, revealing names
 
 Always create well-structured, production-ready skills that follow best practices and work reliably in Claude Code CLI.

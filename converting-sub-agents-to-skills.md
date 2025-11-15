@@ -126,7 +126,7 @@ Verify:
 - Create separate files for detailed content (with intention-revealing names)
 - Add troubleshooting section
 - Include completion checklist
-- Emphasize CLI and Node.js tooling
+- Emphasize CLI and Python tooling
 - Keep SKILL.md under 500 lines
 
 #### Remove/Transform
@@ -147,7 +147,7 @@ skill-name/
 ├── templates/
 │   └── review-report.md
 └── scripts/
-    └── analyze-complexity.js (Node.js, not Python!)
+    └── analyze-complexity.py (Python, not Node.js!)
 ```
 
 Reference supporting files with relative paths in SKILL.md:
@@ -227,7 +227,7 @@ Use these tools to assist reviews:
 - `gh pr view` - View pull request details
 - `gh pr diff` - See PR changes
 - `git diff` - Compare code changes
-- Node.js scripts for custom analysis (see `./scripts/`)
+- Python scripts for custom analysis (see `./scripts/`)
 
 ## Example Review Structure
 
@@ -314,8 +314,8 @@ Systematically analyze and resolve application errors through methodical investi
    - Run existing tests if available
    - Suggest test commands to verify fix
    - Use CLI tools to validate:
-     - `npm test`
-     - `node script.js`
+     - `pytest`
+     - `python script.py`
      - Language-specific linters
 
 ## CLI Debugging Tools
@@ -324,8 +324,8 @@ Leverage these tools:
 - `git log --oneline -10` - Recent changes
 - `git blame` - Find who changed code
 - `gh pr list` - Check related PRs
-- `npm run debug` - If configured
-- Node.js debugging with `node --inspect`
+- `python -m pdb` - Python debugger
+- Language-specific debugging tools
 
 ## Example Workflow
 
@@ -338,16 +338,16 @@ Leverage these tools:
 4. Identify if it's an async timing issue
 
 **Recommendation:**
-```javascript
-// Before
-const userName = user.name;
+```python
+# Before
+user_name = user.name
 
-// After (add null check)
-const userName = user?.name || 'Unknown';
+# After (add null check)
+user_name = getattr(user, 'name', 'Unknown')
 ```
 
 **Verification:**
-- Run tests: `npm test`
+- Run tests: `pytest`
 - Check similar patterns: `grep -r "user.name" .`
 ```
 
@@ -387,7 +387,7 @@ description: Use this skill when analyzing datasets, writing SQL queries, explor
 
 # Data Analysis Expert
 
-Help users analyze data, write queries, and extract insights using modern CLI tools and Node.js.
+Help users analyze data, write queries, and extract insights using modern CLI tools and Python.
 
 ## Analysis Approach
 
@@ -406,16 +406,17 @@ Help users analyze data, write queries, and extract insights using modern CLI to
    - Test queries incrementally
 
 3. **Data Processing**
-   - Use Node.js for transformations:
-     ```javascript
-     import { readFile, writeFile } from 'fs/promises';
+   - Use Python for transformations:
+     ```python
+     from pathlib import Path
+     import json
 
-     const data = JSON.parse(await readFile('data.json', 'utf-8'));
-     const processed = data.map(/* transform */);
-     await writeFile('output.json', JSON.stringify(processed, null, 2));
+     data = json.loads(Path('data.json').read_text())
+     processed = [transform(item) for item in data]
+     Path('output.json').write_text(json.dumps(processed, indent=2))
      ```
-   - Leverage npm packages:
-     - `npm install -g csv-parser` for CSV processing
+   - Leverage pip packages:
+     - `pip install pandas` for data processing
      - Use `jq` for JSON querying
 
 4. **Insight Generation**
@@ -430,21 +431,20 @@ Help users analyze data, write queries, and extract insights using modern CLI to
 - `jq` - JSON processing
 - `awk` - Text processing
 - `sort`, `uniq`, `wc` - Data aggregation
-- Node.js for complex transformations
+- Python for complex transformations
 - `gh` - Access GitHub data
 - `aws s3` - Work with cloud data
 
-**Avoid Python** - Use Node.js instead:
-```javascript
-#!/usr/bin/env node
-import { createReadStream } from 'fs';
-import { parse } from 'csv-parse';
+**Use Python** for data processing:
+```python
+#!/usr/bin/env python3
+import csv
 
-const parser = createReadStream('data.csv').pipe(parse({ columns: true }));
-for await (const record of parser) {
-  // Process each record
-  console.log(record);
-}
+with open('data.csv', 'r') as f:
+    reader = csv.DictReader(f)
+    for record in reader:
+        # Process each record
+        print(record)
 ```
 
 ## Example Queries
@@ -459,19 +459,17 @@ ORDER BY revenue DESC
 LIMIT 10;
 ```
 
-**Node.js - Aggregate JSON data:**
-```javascript
-#!/usr/bin/env node
-import { readFile } from 'fs/promises';
+**Python - Aggregate JSON data:**
+```python
+#!/usr/bin/env python3
+from pathlib import Path
+import json
 
-const orders = JSON.parse(await readFile('orders.json', 'utf-8'));
-const summary = orders.reduce((acc, order) => {
-  acc.total += order.amount;
-  acc.count += 1;
-  return acc;
-}, { total: 0, count: 0 });
+orders = json.loads(Path('orders.json').read_text())
+total = sum(order['amount'] for order in orders)
+count = len(orders)
 
-console.log(`Total: $${summary.total}, Orders: ${summary.count}`);
+print(f'Total: ${total}, Orders: {count}')
 ```
 
 See `./data-processing-patterns.md` for more examples.
@@ -481,8 +479,8 @@ See `./data-processing-patterns.md` for more examples.
 1. Name: `data-scientist` → `analyzing-data` (gerund, more general)
 2. Description: Comprehensive with data-related trigger keywords
 3. Removed: `model` field
-4. Enhanced: Heavy emphasis on CLI tools and Node.js
-5. Added: Specific code examples in Node.js (not Python)
+4. Enhanced: Heavy emphasis on CLI tools and Python
+5. Added: Specific code examples in Python
 6. Structured: Clear workflow from exploration to insights
 7. Referenced: Supporting file for additional patterns
 
@@ -499,7 +497,7 @@ Use this checklist when converting any sub-agent to a skill:
 - [ ] Remove `model` and `tools` fields from YAML
 - [ ] Copy core instructions and domain expertise
 - [ ] Preserve examples (transform self-references to direct instructions)
-- [ ] Add CLI and Node.js tooling emphasis
+- [ ] Add CLI and Python tooling emphasis
 - [ ] Add validation/testing steps
 - [ ] Consider if supporting files would help (use intention-revealing names)
 - [ ] Keep SKILL.md under 500 lines
@@ -527,13 +525,13 @@ After conversion, verify:
    - Ask Claude queries that should trigger the skill
    - Verify skill is invoked appropriately
    - Check that instructions are followed
-   - Confirm CLI/Node.js approaches are present
+   - Confirm CLI/Python approaches are present
 
 4. **Content Comparison**
    - Did we preserve core sub-agent expertise?
    - Are examples still present and useful?
    - Is domain knowledge intact?
-   - Are CLI tools emphasized?
+   - Are CLI and Python tools emphasized?
 
 ## Common Issues and Solutions
 
@@ -552,15 +550,15 @@ After conversion, verify:
 - Ensure third person voice
 - Test with various query phrasings
 
-### Issue: Converted Skill Too Python-Heavy
+### Issue: Converted Skill Too Node.js-Heavy
 
-**Symptoms:** Examples and scripts use Python
+**Symptoms:** Examples and scripts use Node.js/JavaScript
 
 **Solutions:**
-- Replace all Python examples with Node.js
-- Update script files to use `.js` extension with ESM
+- Replace all Node.js examples with Python
+- Update script files to use `.py` extension
 - Show CLI tool alternatives
-- Emphasize Node.js v24+ patterns
+- Emphasize Python 3.9+ patterns
 
 ### Issue: SKILL.md Too Long
 
@@ -579,9 +577,9 @@ After conversion, verify:
 
 **Solutions:**
 - Add CLI tools section
-- Show specific commands (gh, aws, npm, etc.)
+- Show specific commands (gh, aws, pip, etc.)
 - Provide complete, runnable examples
-- Suggest global npm package installations
+- Suggest global pip package installations
 - Demonstrate command chaining
 
 ## Advanced: Multi-File Skills
@@ -597,8 +595,8 @@ analyzing-data/
 │   ├── analysis-report.md
 │   └── query-template.sql
 └── scripts/
-    ├── aggregate-json.js (Node.js)
-    └── transform-csv.js (Node.js)
+    ├── aggregate-json.py (Python)
+    └── transform-csv.py (Python)
 ```
 
 This enables progressive disclosure:
@@ -621,7 +619,7 @@ This enables progressive disclosure:
 4. **Keep examples** - They're invaluable for understanding
 5. **Use gerund names** - `processing-data`, not `data-processor`
 6. **Remove agent fields** - No `model` or `tools` in skill YAML
-7. **Emphasize CLI/Node** - Show modern tooling approaches
+7. **Emphasize CLI/Python** - Show modern tooling approaches
 8. **Intention-revealing names** - For all supporting files
 9. **Progressive disclosure** - SKILL.md < 500 lines, details elsewhere
 10. **Test thoroughly** - Verify invocation and functionality
