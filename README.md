@@ -20,8 +20,8 @@ This is **an experiment** in using Claude Code for **more general-purpose use ca
 
 **This means you should personalize it!** 🎨
 
-The version here reflects Ken's workflow—heavy on CLI tools (gh, aws, npm), Node.js scripting, and system-wide automation. Your needs might be different:
-- Maybe you prefer Python over Node.js
+The version here reflects a Python-focused workflow—heavy on CLI tools (gh, aws, pip), Python scripting, and system-wide automation. Your needs might be different:
+- Maybe you prefer Node.js over Python
 - Perhaps you work with different cloud providers
 - Your CLI toolkit might include different tools
 - Your naming conventions might vary
@@ -36,8 +36,8 @@ The version here reflects Ken's workflow—heavy on CLI tools (gh, aws, npm), No
 Build production-ready Claude Code skills with:
 - ✅ Perfect YAML frontmatter
 - ✅ Invocation-optimized descriptions
-- ✅ CLI-first approach (gh, aws, npm, and more!)
-- ✅ Modern Node.js patterns (ESM imports, v24+)
+- ✅ CLI-first approach (gh, aws, pip, and more!)
+- ✅ Modern Python patterns (pathlib, type hints, 3.9+)
 - ✅ Intention-revealing file names
 - ✅ Progressive disclosure architecture
 
@@ -45,7 +45,7 @@ Build production-ready Claude Code skills with:
 Level up your skills with:
 - 🎯 Better descriptions for improved invocation
 - 📚 Progressive disclosure (keep SKILL.md under 500 lines)
-- 🔧 CLI and Node.js best practices
+- 🔧 CLI and Python best practices
 - 📂 Organized multi-file structures
 
 ### 🔄 3. Convert Sub-Agents to Skills
@@ -108,8 +108,8 @@ The Skill Builder will:
 - Implements patterns from [Anthropic's engineering blog](https://www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)
 
 ### 🎨 Opinionated & Practical
-- CLI-first mindset (gh, aws, npm, jq, etc.)
-- Node.js v24+ with ESM imports (no Python!)
+- CLI-first mindset (gh, aws, pip, jq, etc.)
+- Python 3.9+ with modern features (no Node.js!)
 - Gerund-form naming conventions
 - Intention-revealing file names
 - Progressive disclosure for context efficiency
@@ -135,7 +135,7 @@ skill-builder/
 
 Each file is meticulously crafted with:
 - 🎯 Clear, actionable instructions
-- 💻 Complete code examples (Node.js + CLI)
+- 💻 Complete code examples (Python + CLI)
 - 📊 Real-world use cases from official docs
 - ✅ Validation and testing guidelines
 
@@ -145,8 +145,8 @@ Each file is meticulously crafted with:
 
 - **🤖 Meta AF**: A skill that teaches Claude to build skills
 - **📝 Comprehensive**: 900+ lines of curated guidance
-- **🎨 CLI-Focused**: Leverage gh, aws, npm, and modern tooling
-- **⚡ Node.js Native**: ESM imports, modern JavaScript patterns
+- **🎨 CLI-Focused**: Leverage gh, aws, pip, and modern tooling
+- **⚡ Python Native**: Modern Python patterns (pathlib, type hints)
 - **📚 Doc-Driven**: Always references latest official resources
 - **🎯 Invocation-Optimized**: Descriptions that actually trigger properly
 - **🔧 Battle-Tested**: Patterns from real-world AI engineering
